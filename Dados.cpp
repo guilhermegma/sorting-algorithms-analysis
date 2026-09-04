@@ -43,33 +43,92 @@ public:
         // Limpa vetores anteriores caso o usuário rode o menu de novo
         dadosAletorios.clear();
         dadosAletorios.reserve(qntd);
+        dadosPreOrdenados.clear();
+        dadosPreOrdenados.reserve(qntd);
+        dadosInverso.clear();
+        dadosInverso.reserve(qntd);
+        dadosParOrdenados.clear();
+        dadosParOrdenados.reserve(qntd);
 
         // Configuração do gerador aleatório (fora do switch para evitar repetição)
         random_device rd;
         mt19937 gen(rd());
         uniform_int_distribution<int> distrib(1, qntd * 10);
+        uniform_int_distribution<int> incremento(1, 10);
+        uniform_int_distribution<int> posicao(0, qntd - 1);
 
-        for(int i = 0; i < qntd; i++) {
+        // --- Dados aleatorios ---
+        for (int i = 0; i < qntd; i++) {
             dadosAletorios.push_back(distrib(gen));
         }
-        
-        // Copia e ordena
-        dadosPreOrdenados = dadosAletorios;
-        sort(dadosPreOrdenados.begin(), dadosPreOrdenados.end());
 
-        // Copia o ordenado e inverte 
-        dadosInverso = dadosPreOrdenados;
-        reverse(dadosInverso.begin(), dadosInverso.end());
-
-        // Copia o ordenado e bagunça  
-        dadosParOrdenados = dadosPreOrdenados;
-        // Exemplo simples: troca 10% dos elementos de posição para simular desalinhamento leve
-        for(int i = 0; i < qntd; i += 10) {
-            if (i + 1 < qntd) {
-                swap(dadosParOrdenados[i], dadosParOrdenados[i + 1]);
+        // --- Dados pre-ordenados ---
+        // IMPORTANTE: o enunciado proibe usar funcoes de ordenacao prontas
+        // da biblioteca (ex.: std::sort). Por isso a sequencia crescente
+        // eh construida diretamente, por soma de incrementos aleatorios,
+        // sem chamar nenhum algoritmo de ordenacao.
+        {
+            int valor = incremento(gen);
+            dadosPreOrdenados.push_back(valor);
+            for (int i = 1; i < qntd; i++) {
+                valor += incremento(gen);
+                dadosPreOrdenados.push_back(valor);
             }
         }
+
+        // --- Dados em ordem inversa ---
+        // Mesmo raciocinio: construida diretamente decrescente,
+        // sem usar std::sort + std::reverse.
+        {
+            int valor = qntd * 10;
+            dadosInverso.push_back(valor);
+            for (int i = 1; i < qntd; i++) {
+                valor -= incremento(gen);
+                dadosInverso.push_back(valor);
+            }
+        }
+
+        // --- Dados parcialmente ordenados ---
+        // Parte da sequencia ja crescente (copia de vetor, isso NAO eh
+        // ordenacao) e embaralha ~10% das posicoes com swaps aleatorios.
+        dadosParOrdenados = dadosPreOrdenados;
+        {
+            int trocas = qntd / 10;
+            if (trocas < 1) trocas = 1;
+            for (int i = 0; i < trocas; i++) {
+                int a = posicao(gen);
+                int b = posicao(gen);
+                swap(dadosParOrdenados[a], dadosParOrdenados[b]);
+            }
+        }
+
         cout << "\n[Sucesso] " << qntd << " dados gerados e preparados em todos os cenarios!\n";
+    }
+
+    // Retorna referencia ao vetor correspondente ao tipo escolhido
+    // (1=Aleatorios, 2=Pre-Ordenados, 3=Inversos, 4=Parcialmente Ordenados)
+    vector<int>& obterVetorPorTipo(int tipo) {
+        switch (tipo) {
+            case 1:  return dadosAletorios;
+            case 2:  return dadosPreOrdenados;
+            case 3:  return dadosInverso;
+            case 4:  return dadosParOrdenados;
+            default: return dadosAletorios;
+        }
+    }
+
+    string nomeTipo(int tipo) {
+        switch (tipo) {
+            case 1:  return "Aleatorios";
+            case 2:  return "Pre-Ordenados";
+            case 3:  return "Inversos";
+            case 4:  return "Parcialmente Ordenados";
+            default: return "Desconhecido";
+        }
+    }
+
+    bool vazio() {
+        return dadosAletorios.empty();
     }
 
   void imprimirTabela(const vector<int>& v, const string& titulo) {
