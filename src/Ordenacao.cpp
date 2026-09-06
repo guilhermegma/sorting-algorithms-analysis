@@ -99,9 +99,29 @@ void insertionSort(vector<int>& v, Estatisticas& stats) {
 }
 
 void shellSort(vector<int>& v, Estatisticas& stats) {
-    (void) v;
-    /* TODO: implementar Shell Sort */
-    cout << "[Shell Sort] ainda nao implementado.\n";
+    int chave = 0;
+    int tam = v.size();
+
+    for (int gap = tam / 2; gap > 0; gap /= 2) {
+        for (int i = gap; i < tam; i++) {
+            chave = v[i];
+            stats.movimentacoes ++;
+            int j = i - gap;
+            while (j >= 0) {
+                if (v[j] > chave) {
+                    v[j + gap] = v[j];
+                    j -= gap;
+                    stats.movimentacoes ++;
+                    stats.comparacoes ++;
+                } else {
+                    stats.comparacoes ++;
+                    break;
+                }
+            }
+            v[j + gap] = chave;
+            stats.movimentacoes ++;
+        }
+    }
 }
 
 void quickSort(vector<int>& v, Estatisticas& stats) {
