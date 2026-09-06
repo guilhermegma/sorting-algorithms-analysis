@@ -60,7 +60,7 @@ public:
         // --- Dados aleatorios ---
         for (int i = 0; i < qntd; i++) {
             dadosAletorios.push_back(distrib(gen));
-        }
+        }    // Cabeçalho exato que você pediu
 
         // --- Dados pre-ordenados ---
         // IMPORTANTE: o enunciado proibe usar funcoes de ordenacao prontas
@@ -228,6 +228,44 @@ public:
             default: 
                 cout << "\n[Erro] Opcao invalida!\n"; 
                 break;
+        }
+    }
+
+    // Função auxiliar para automatizar a geração sem usar o menu (cin)
+    void gerarDadosSilencioso(int qntd) {
+        dadosAletorios.clear(); dadosAletorios.reserve(qntd);
+        dadosPreOrdenados.clear(); dadosPreOrdenados.reserve(qntd);
+        dadosInverso.clear(); dadosInverso.reserve(qntd);
+        dadosParOrdenados.clear(); dadosParOrdenados.reserve(qntd);
+
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<int> distrib(1, qntd * 10);
+        uniform_int_distribution<int> incremento(1, 10);
+        uniform_int_distribution<int> posicao(0, qntd - 1);
+
+        for (int i = 0; i < qntd; i++) dadosAletorios.push_back(distrib(gen));
+
+        int valor = incremento(gen);
+        dadosPreOrdenados.push_back(valor);
+        for (int i = 1; i < qntd; i++) {
+            valor += incremento(gen);
+            dadosPreOrdenados.push_back(valor);
+        }
+
+        valor = qntd * 10;
+        dadosInverso.push_back(valor);
+        for (int i = 1; i < qntd; i++) {
+            valor -= incremento(gen);
+            dadosInverso.push_back(valor);
+        }
+
+        dadosParOrdenados = dadosPreOrdenados;
+        int trocas = max(1, qntd / 10);
+        for (int i = 0; i < trocas; i++) {
+            int a = posicao(gen);
+            int b = posicao(gen);
+            swap(dadosParOrdenados[a], dadosParOrdenados[b]);
         }
     }
 };

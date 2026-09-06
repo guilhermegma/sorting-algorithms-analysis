@@ -1,0 +1,81 @@
+Algoritmo,Tamanho,Organizacao,Comparacoes,Movimentacoes,Tempo
+Selection Sort,1000,Aleatorios,499500,2967,0.004942
+Selection Sort,1000,Pre-Ordenados,499500,0,0.002715
+Selection Sort,1000,Inversos,499500,1500,0.002805
+Selection Sort,1000,Parcialmente Ordenados,499500,300,0.002690
+Selection Sort,10000,Aleatorios,49995000,29976,0.240326
+Selection Sort,10000,Pre-Ordenados,49995000,0,0.273717
+Selection Sort,10000,Inversos,49995000,15000,0.243635
+Selection Sort,10000,Parcialmente Ordenados,49995000,3000,0.238869
+Selection Sort,50000,Aleatorios,1249975000,149982,5.865230
+Selection Sort,50000,Pre-Ordenados,1249975000,0,5.851101
+Selection Sort,50000,Inversos,1249975000,75000,5.940323
+Selection Sort,50000,Parcialmente Ordenados,1249975000,15000,5.790285
+Selection Sort,100000,Aleatorios,4999950000,299973,23.725978
+Selection Sort,100000,Pre-Ordenados,4999950000,0,23.787772
+Selection Sort,100000,Inversos,4999950000,150000,24.028819
+Selection Sort,100000,Parcialmente Ordenados,4999950000,30000,23.333716
+Insertion Sort,1000,Aleatorios,257680,258685,0.001850
+Insertion Sort,1000,Pre-Ordenados,999,1998,0.000008
+Insertion Sort,1000,Inversos,499500,501498,0.003662
+Insertion Sort,1000,Parcialmente Ordenados,63087,64086,0.000471
+Insertion Sort,10000,Aleatorios,25106924,25116930,0.194082
+Insertion Sort,10000,Pre-Ordenados,9999,19998,0.000111
+Insertion Sort,10000,Inversos,49995000,50014998,0.361230
+Insertion Sort,10000,Parcialmente Ordenados,5772071,5782070,0.041038
+Insertion Sort,50000,Aleatorios,622082791,622132795,4.362531
+Insertion Sort,50000,Pre-Ordenados,49999,99998,0.000408
+Insertion Sort,50000,Inversos,1249975000,1250074998,8.759911
+Insertion Sort,50000,Parcialmente Ordenados,144417292,144467291,1.009919
+Insertion Sort,100000,Aleatorios,2497284721,2497384734,17.541199
+Insertion Sort,100000,Pre-Ordenados,99999,199998,0.000822
+Insertion Sort,100000,Inversos,4999950000,5000149998,36.067447
+Insertion Sort,100000,Parcialmente Ordenados,567949557,568049560,4.001543
+Shell Sort,1000,Aleatorios,14829,23326,0.000188
+Shell Sort,1000,Pre-Ordenados,8006,16012,0.000069
+Shell Sort,1000,Inversos,11716,20712,0.000108
+Shell Sort,1000,Parcialmente Ordenados,13246,21396,0.000162
+Shell Sort,10000,Aleatorios,268111,393273,0.003145
+Shell Sort,10000,Pre-Ordenados,120005,240010,0.001078
+Shell Sort,10000,Inversos,172578,302570,0.001569
+Shell Sort,10000,Parcialmente Ordenados,230447,351766,0.002773
+Shell Sort,50000,Aleatorios,1917372,2642895,0.021178
+Shell Sort,50000,Pre-Ordenados,700006,1400012,0.006237
+Shell Sort,50000,Inversos,1047305,1797292,0.009177
+Shell Sort,50000,Parcialmente Ordenados,1604332,2310588,0.017735
+Shell Sort,100000,Aleatorios,4457199,6007788,0.046617
+Shell Sort,100000,Pre-Ordenados,1500006,3000012,0.013008
+Shell Sort,100000,Inversos,2244585,3844572,0.019140
+Shell Sort,100000,Parcialmente Ordenados,3652111,5164818,0.039315
+Quick Sort,1000,Aleatorios,0,0,0.000002
+Quick Sort,1000,Pre-Ordenados,0,0,0.000001
+Quick Sort,1000,Inversos,0,0,0.000001
+Quick Sort,1000,Parcialmente Ordenados,0,0,0.000001
+Quick Sort,10000,Aleatorios,0,0,0.000003
+Quick Sort,10000,Pre-Ordenados,0,0,0.000002
+Quick Sort,10000,Inversos,0,0,0.000002
+Quick Sort,10000,Parcialmente Ordenados,0,0,0.000003
+Quick Sort,50000,Aleatorios,0,0,0.000009
+Quick Sort,50000,Pre-Ordenados,0,0,0.000001
+Quick Sort,50000,Inversos,0,0,0.000005
+Quick Sort,50000,Parcialmente Ordenados,0,0,0.000001
+Quick Sort,100000,Aleatorios,0,0,0.000012
+Quick Sort,100000,Pre-Ordenados,0,0,0.000002
+Quick Sort,100000,Inversos,0,0,0.000002
+Quick Sort,100000,Parcialmente Ordenados,0,0,0.000002
+Heap Sort,1000,Aleatorios,0,0,0.000001
+Heap Sort,1000,Pre-Ordenados,0,0,0.000001
+Heap Sort,1000,Inversos,0,0,0.000001
+Heap Sort,1000,Parcialmente Ordenados,0,0,0.000001
+Heap Sort,10000,Aleatorios,0,0,0.000004
+Heap Sort,10000,Pre-Ordenados,0,0,0.000001
+Heap Sort,10000,Inversos,0,0,0.000001
+Heap Sort,10000,Parcialmente Ordenados,0,0,0.000001
+Heap Sort,50000,Aleatorios,0,0,0.000004
+Heap Sort,50000,Pre-Ordenados,0,0,0.000001
+Heap Sort,50000,Inversos,0,0,0.000001
+Heap Sort,50000,Parcialmente Ordenados,0,0,0.000001
+Heap Sort,100000,Aleatorios,0,0,0.000010
+Heap Sort,100000,Pre-Ordenados,0,0,0.000004
+Heap Sort,100000,Inversos,0,0,0.000002
+Heap Sort,100000,Parcialmente Ordenados,0,0,0.000001
