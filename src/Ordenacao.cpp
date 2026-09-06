@@ -54,9 +54,24 @@ typedef void (*FuncaoOrdenacao)(vector<int>&, Estatisticas&);
  * ============================================================ */
 
 void selectionSort(vector<int>& v, Estatisticas& stats) {
-    (void) v;
-    /* TODO: implementar Selection Sort */
-    cout << "[Selection Sort] ainda nao implementado.\n";
+    int menor_indice = 0;
+    int tam = v.size();
+
+    for (int i = 0; i < tam - 1; i++) {
+        menor_indice = i;
+        for (int j = i+1; j < tam; j++) {
+            if (v[j] < v[menor_indice]) {
+                menor_indice = j;
+            }
+            stats.comparacoes ++;
+        }
+        if (menor_indice != i) {
+            int aux = v[i];
+            v[i] = v[menor_indice];
+            v[menor_indice] = aux;
+            stats.movimentacoes += 3;
+        }
+    }
 }
 
 void insertionSort(vector<int>& v, Estatisticas& stats) {
