@@ -75,9 +75,27 @@ void selectionSort(vector<int>& v, Estatisticas& stats) {
 }
 
 void insertionSort(vector<int>& v, Estatisticas& stats) {
-    (void) v;
-    /* TODO: implementar Insertion Sort */
-    cout << "[Insertion Sort] ainda nao implementado.\n";
+    int chave = 0;
+    int tam = v.size();
+
+    for (int i = 1; i < tam; i++) {
+        chave = v[i];
+        stats.movimentacoes ++;
+        int j = i-1;
+        while (j >= 0) {
+            if (v[j] > chave) {
+                v[j+1] = v[j];
+                j--;
+                stats.movimentacoes ++;
+                stats.comparacoes ++;
+            } else {
+                stats.comparacoes ++;
+                break;
+            }
+        }
+        v[j+1] = chave;
+        stats.movimentacoes ++;
+    }
 }
 
 void shellSort(vector<int>& v, Estatisticas& stats) {
