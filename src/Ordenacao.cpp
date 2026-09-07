@@ -6,7 +6,7 @@
  *
  * Contem:
  *   - struct Estatisticas (comparacoes, movimentacoes, tempo)
- *   - as 5 funcoes de ordenacao exigidas (por enquanto como TODO)
+ *   - as 5 funcoes de ordenacao exigidas
  *   - executarAlgoritmo(): roda um algoritmo sobre uma COPIA do
  *     vetor original, mede o tempo e imprime as estatisticas
  *   - executarTodos(): roda os 5 algoritmos e imprime uma tabela
@@ -39,18 +39,7 @@ struct Estatisticas {
 typedef void (*FuncaoOrdenacao)(vector<int>&, Estatisticas&);
 
 /* ============================================================
- * ALGORITMOS DE ORDENACAO -- TODO
- *
- * Cada funcao deve:
- *   1) Ordenar "v" em ordem crescente, IN-PLACE.
- *   2) Incrementar stats.comparacoes a cada comparacao entre
- *      chaves.
- *   3) Incrementar stats.movimentacoes a cada atribuicao de um
- *      elemento do vetor (cada v[i] = v[j] conta 1, uma troca
- *      classica conta 2 ou 3 dependendo de como e implementada).
- *
- * "stats" ja chega zerada (quem zera eh "executarAlgoritmo"),
- * entao aqui e so somar.
+ * ALGORITMOS DE ORDENACAO
  * ============================================================ */
 
 void selectionSort(vector<int>& v, Estatisticas& stats) {
@@ -124,18 +113,91 @@ void shellSort(vector<int>& v, Estatisticas& stats) {
     }
 }
 
+/* --- Funcoes auxiliares para Quick Sort --- */
+int partition(vector<int>& v, int low, int high, Estatisticas& stats) {
+    int pivot = v[high];
+    stats.movimentacoes++; // Cópia do valor do pivô
+
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        stats.comparacoes++;
+        if (v[j] < pivot) {
+            i++;
+            int temp = v[i];
+            v[i] = v[j];
+            v[j] = temp;
+            stats.movimentacoes += 3; // Troca completa
+        }
+    }
+    int temp = v[i + 1];
+    v[i + 1] = v[high];
+    v[high] = temp;
+    stats.movimentacoes += 3; // Troca do pivô para posição final
+
+    return i + 1;
+}
+
+void quickSortRec(vector<int>& v, int low, int high, Estatisticas& stats) {
+    if (low < high) {
+        int pi = partition(v, low, high, stats);
+        quickSortRec(v, low, pi - 1, stats);
+        quickSortRec(v, pi + 1, high, stats);
+    }
+}
+
 void quickSort(vector<int>& v, Estatisticas& stats) {
-    (void) v;
-    /* TODO: implementar Quick Sort (pode usar uma funcao auxiliar
-     * recursiva, ex.: quickSortRec(v, esq, dir, stats)) */
-    cout << "[Quick Sort] ainda nao implementado.\n";
+    if (!v.empty()) {
+        quickSortRec(v, 0, v.size() - 1, stats);
+    }
+}
+
+/* --- Funcoes auxiliares para Heap Sort --- */
+void heapify(vector<int>& v, int n, int i, Estatisticas& stats) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if (left < n) {
+        stats.comparacoes++;
+        if (v[left] > v[largest]) {
+            largest = left;
+        }
+    }
+
+    if (right < n) {
+        stats.comparacoes++;
+        if (v[right] > v[largest]) {
+            largest = right;
+        }
+    }
+
+    if (largest != i) {
+        int temp = v[i];
+        v[i] = v[largest];
+        v[largest] = temp;
+        stats.movimentacoes += 3; // Troca completa
+        
+        heapify(v, n, largest, stats);
+    }
 }
 
 void heapSort(vector<int>& v, Estatisticas& stats) {
-    (void) v;
-    /* TODO: implementar Heap Sort (pode usar funcoes auxiliares
-     * "construirHeap" e "refazHeap", como nos slides) */
-    cout << "[Heap Sort] ainda nao implementado.\n";
+    int n = v.size();
+
+    // Constrói o Max-Heap
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        heapify(v, n, i, stats);
+    }
+
+    // Extrai os elementos do heap
+    for (int i = n - 1; i > 0; i--) {
+        int temp = v[0];
+        v[0] = v[i];
+        v[i] = temp;
+        stats.movimentacoes += 3; // Troca completa
+        
+        heapify(v, i, 0, stats);
+    }
 }
 
 /* ============================================================
@@ -143,9 +205,6 @@ void heapSort(vector<int>& v, Estatisticas& stats) {
  * ============================================================ */
 void executarAlgoritmo(FuncaoOrdenacao algoritmo, const string& nome,
                         const vector<int>& vetorOriginal, Estatisticas& statsSaida) {
-    // condicao dos experimentos: cada algoritmo roda sobre uma COPIA
-    // do vetor original, entao nenhum altera os dados usados pelos
-    // demais
     vector<int> copia = vetorOriginal;
 
     statsSaida = Estatisticas(); // zera
